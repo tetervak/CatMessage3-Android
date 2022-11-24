@@ -12,8 +12,6 @@ class CatMessageViewModel : ViewModel() {
         CatMessageUiState().copy(
             onMessageChange = ::setMessage,
             onUrgencyChange = ::setUrgency,
-            onSend = { setDestination(navDestination = NavDestination.OUTPUT) },
-            onBack = { setDestination(navDestination = NavDestination.INPUT) }
         )
     )
     val uiState: State<CatMessageUiState> = _uiState
@@ -25,11 +23,6 @@ class CatMessageViewModel : ViewModel() {
 
     private fun setMessage(catMessage: CatMessage) {
         val newUiState = uiState.value.copy(catMessage = catMessage)
-        _uiState.value = newUiState
-    }
-
-    private fun setDestination(navDestination: NavDestination) {
-        val newUiState = uiState.value.copy(navDestination = navDestination)
         _uiState.value = newUiState
     }
 

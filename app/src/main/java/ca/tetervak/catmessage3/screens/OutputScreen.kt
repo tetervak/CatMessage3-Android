@@ -21,6 +21,7 @@ import ca.tetervak.catmessage3.theme.CatMessageTheme
 @Composable
 fun OutputScreen(
     uiState: CatMessageUiState,
+    onBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -46,14 +47,14 @@ fun OutputScreen(
         )
         UrgencyOutput(
             urgent = uiState.urgent,
-            modifier = Modifier.padding(top = 8.dp)
+            modifier = Modifier.padding(top = 16.dp)
         )
         CatMessageOutput(
             catMessage = uiState.catMessage,
             modifier = Modifier.padding(top = 8.dp)
         )
         Button(
-            onClick = uiState.onBack,
+            onClick = onBack,
             modifier = Modifier.padding(top = 32.dp)
         ) {
             Text(text = stringResource(id = R.string.back_button_label))
@@ -103,6 +104,9 @@ private fun UrgencyOutput(
 @Composable
 fun OutputScreenPreview() {
     CatMessageTheme {
-        OutputScreen(CatMessageUiState())
+        OutputScreen(
+            uiState = CatMessageUiState(),
+            onBack = {}
+        )
     }
 }
