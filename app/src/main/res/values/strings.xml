@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">CatMessage3</string>
+    <string name="input_screen_label">Input Screen</string>
+    <string name="select_a_message_label">Select a message</string>
+    <string name="send_button_label">Send</string>
+    <string name="cat_purr">Purr</string>
+    <string name="cat_mew">Mew</string>
+    <string name="cat_hiss">Hiss</string>
+    <string name="urgency_checkbox_label">Urgent</string>
+    <string name="back_button_label">Back</string>
+    <string name="output_screen_label">Output Screen</string>
+    <string name="received_message_label">Received Message</string>
+    <string name="urgent">Urgent</string>
+    <string name="not_urgent">Not Urgent</string>
 </resources>

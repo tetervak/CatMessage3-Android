@@ -1,4 +1,4 @@
-package ca.tetervak.catmessage3.ui.screens
+package ca.tetervak.catmessage3.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
@@ -9,15 +9,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ca.tetervak.catmessage3.R
 import ca.tetervak.catmessage3.model.CatMessage
+import ca.tetervak.catmessage3.CatMessageUiState
+import ca.tetervak.catmessage3.theme.CatMessageTheme
 
 @Composable
-fun InputScreen(modifier: Modifier = Modifier) {
+fun InputScreen(
+    uiState: CatMessageUiState,
+    modifier: Modifier = Modifier
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
@@ -25,7 +32,7 @@ fun InputScreen(modifier: Modifier = Modifier) {
             .padding(32.dp)
     ) {
         Text(
-            text = "Input Screen",
+            text = stringResource(id = R.string.input_screen_label),
             fontSize = 24.sp,
             color = colorResource(id = R.color.pink_800),
             fontWeight = FontWeight.Bold,
@@ -36,24 +43,24 @@ fun InputScreen(modifier: Modifier = Modifier) {
         )
         Spacer(modifier = Modifier.weight(1f))
         Text(
-            text = "Select a message",
+            text = stringResource(id = R.string.select_a_message_label),
             fontSize = 20.sp
         )
         UrgencyInput(
-            urgent = true,
-            onChange = {},
+            urgent = uiState.urgent,
+            onChange = uiState.onUrgencyChange,
             modifier = Modifier.padding(top = 16.dp)
         )
         MessageInput(
-            message = CatMessage.MEW,
-            onChange = {},
+            catMessage = uiState.catMessage,
+            onChange = uiState.onMessageChange,
             modifier = Modifier.padding(top = 8.dp)
         )
         Button(
-            onClick = { },
+            onClick = uiState.onSend,
             modifier = Modifier.padding(top = 32.dp)
         ) {
-            Text(text = "Send")
+            Text(text = stringResource(id = R.string.send_button_label))
         }
         Spacer(modifier = Modifier.weight(2f))
     }
@@ -61,7 +68,7 @@ fun InputScreen(modifier: Modifier = Modifier) {
 
 @Composable
 fun MessageInput(
-    message: CatMessage,
+    catMessage: CatMessage,
     onChange: (CatMessage) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -72,11 +79,11 @@ fun MessageInput(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             RadioButton(
-                selected = message == CatMessage.PURR,
+                selected = catMessage == CatMessage.PURR,
                 onClick = { onChange(CatMessage.PURR) }
             )
             Text(
-                text = "Purr",
+                text = stringResource(id = R.string.cat_purr),
                 fontSize = 18.sp
             )
         }
@@ -84,11 +91,11 @@ fun MessageInput(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             RadioButton(
-                selected = message == CatMessage.MEW,
+                selected = catMessage == CatMessage.MEW,
                 onClick = { onChange(CatMessage.MEW) }
             )
             Text(
-                text = "Mew",
+                text = stringResource(id = R.string.cat_mew),
                 fontSize = 18.sp
             )
         }
@@ -96,11 +103,11 @@ fun MessageInput(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             RadioButton(
-                selected = message == CatMessage.HISS,
+                selected = catMessage == CatMessage.HISS,
                 onClick = { onChange(CatMessage.HISS) }
             )
             Text(
-                text = "Hiss",
+                text = stringResource(id = R.string.cat_hiss),
                 fontSize = 18.sp
             )
         }
@@ -118,12 +125,20 @@ private fun UrgencyInput(
         modifier = modifier
     ) {
         Checkbox(
-            checked = true,
-            onCheckedChange = {}
+            checked = urgent,
+            onCheckedChange = onChange
         )
         Text(
-            text = "Urgent",
+            text = stringResource(id = R.string.urgency_checkbox_label),
             fontSize = 18.sp
         )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun InputScreenPreview() {
+    CatMessageTheme {
+        InputScreen(CatMessageUiState())
     }
 }

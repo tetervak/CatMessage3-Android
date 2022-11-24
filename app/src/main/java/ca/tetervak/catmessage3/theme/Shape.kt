@@ -1,4 +1,4 @@
-package ca.tetervak.catmessage3.ui.theme
+package ca.tetervak.catmessage3.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes
