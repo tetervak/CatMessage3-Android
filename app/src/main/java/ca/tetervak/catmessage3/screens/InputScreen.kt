@@ -6,6 +6,7 @@ import androidx.compose.material.Checkbox
 import androidx.compose.material.RadioButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
@@ -24,8 +25,8 @@ fun InputScreen(
     onSend: (urgent: Boolean, catMessage: CatMessage) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var urgent: Boolean by remember { mutableStateOf(false) }
-    var catMessage: CatMessage by remember { mutableStateOf(CatMessage.MEW) }
+    var urgent: Boolean by rememberSaveable { mutableStateOf(false) }
+    var catMessage: CatMessage by rememberSaveable { mutableStateOf(CatMessage.MEW) }
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
