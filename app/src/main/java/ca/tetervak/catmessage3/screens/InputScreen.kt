@@ -5,7 +5,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.Checkbox
 import androidx.compose.material.RadioButton
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
@@ -17,15 +17,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ca.tetervak.catmessage3.R
 import ca.tetervak.catmessage3.model.CatMessage
-import ca.tetervak.catmessage3.CatMessageUiState
 import ca.tetervak.catmessage3.theme.CatMessageTheme
 
 @Composable
 fun InputScreen(
-    uiState: CatMessageUiState,
-    onSend: () -> Unit,
+    onSend: (urgent: Boolean, catMessage: CatMessage) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    var urgent: Boolean by remember { mutableStateOf(false) }
+    var catMessage: CatMessage by remember { mutableStateOf(CatMessage.MEW) }
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
@@ -48,17 +49,17 @@ fun InputScreen(
             fontSize = 20.sp
         )
         UrgencyInput(
-            urgent = uiState.urgent,
-            onChange = uiState.onUrgencyChange,
+            urgent = urgent,
+            onChange = { urgent = it },
             modifier = Modifier.padding(top = 16.dp)
         )
         MessageInput(
-            catMessage = uiState.catMessage,
-            onChange = uiState.onMessageChange,
+            catMessage = catMessage,
+            onChange = { catMessage = it },
             modifier = Modifier.padding(top = 8.dp)
         )
         Button(
-            onClick = onSend,
+            onClick = { onSend(urgent, catMessage) },
             modifier = Modifier.padding(top = 32.dp)
         ) {
             Text(text = stringResource(id = R.string.send_button_label))
@@ -141,8 +142,7 @@ private fun UrgencyInput(
 fun InputScreenPreview() {
     CatMessageTheme {
         InputScreen(
-            uiState = CatMessageUiState(),
-            onSend = {}
+            onSend = {_, _ -> }
         )
     }
 }

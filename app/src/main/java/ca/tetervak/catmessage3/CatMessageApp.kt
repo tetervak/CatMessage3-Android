@@ -3,9 +3,13 @@ package ca.tetervak.catmessage3
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavArgument
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import ca.tetervak.catmessage3.model.CatMessage
 import ca.tetervak.catmessage3.screens.InputScreen
 import ca.tetervak.catmessage3.screens.OutputScreen
 import ca.tetervak.catmessage3.theme.CatMessageTheme
@@ -14,9 +18,6 @@ import ca.tetervak.catmessage3.theme.CatMessageTheme
 fun CatMessageApp() {
     CatMessageTheme {
 
-        val viewModel: CatMessageViewModel = viewModel()
-        val uiState: CatMessageUiState by viewModel.uiState
-
         val navController = rememberNavController()
         NavHost(
             navController = navController,
@@ -24,15 +25,24 @@ fun CatMessageApp() {
         ) {
             composable(route = INPUT) {
                 InputScreen(
-                    uiState = uiState,
-                    onSend = {
-                        navController.navigate(route = OUTPUT)
+                    onSend = { urgent, catMessage ->
+                        navController.navigate(
+                            route = "$OUTPUT/$urgent/$catMessage"
+                        )
                     }
                 )
             }
-            composable(route = OUTPUT) {
+            composable(
+                route = OUTPUT_WITH_ARGS,
+                arguments = listOf(
+                    navArgument(URGENCY_ARG){ type = NavType.BoolType },
+                    navArgument(CAT_MESSAGE_ARG){ type = NavType.StringType}
+                )
+            ) { backStackEntry ->
+                val arguments = backStackEntry.arguments!!
                 OutputScreen(
-                    uiState = uiState,
+                    urgent = arguments.getBoolean(URGENCY_ARG),
+                    catMessage = CatMessage.valueOf(arguments.getString(CAT_MESSAGE_ARG)!!),
                     onBack = {
                         navController.popBackStack()
                     }

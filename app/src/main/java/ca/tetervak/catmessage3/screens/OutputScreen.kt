@@ -13,14 +13,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import ca.tetervak.catmessage3.CatMessageUiState
 import ca.tetervak.catmessage3.R
 import ca.tetervak.catmessage3.model.CatMessage
 import ca.tetervak.catmessage3.theme.CatMessageTheme
 
 @Composable
 fun OutputScreen(
-    uiState: CatMessageUiState,
+    urgent: Boolean,
+    catMessage: CatMessage,
     onBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -46,11 +46,11 @@ fun OutputScreen(
             fontSize = 20.sp
         )
         UrgencyOutput(
-            urgent = uiState.urgent,
+            urgent = urgent,
             modifier = Modifier.padding(top = 16.dp)
         )
         CatMessageOutput(
-            catMessage = uiState.catMessage,
+            catMessage = catMessage,
             modifier = Modifier.padding(top = 8.dp)
         )
         Button(
@@ -105,7 +105,8 @@ private fun UrgencyOutput(
 fun OutputScreenPreview() {
     CatMessageTheme {
         OutputScreen(
-            uiState = CatMessageUiState(),
+            urgent = false,
+            catMessage = CatMessage.MEW,
             onBack = {}
         )
     }
