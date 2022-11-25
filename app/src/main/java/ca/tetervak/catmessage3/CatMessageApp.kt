@@ -27,7 +27,7 @@ fun CatMessageApp() {
                 InputScreen(
                     onSend = { urgent, catMessage ->
                         navController.navigate(
-                            route = "$OUTPUT/$urgent/$catMessage"
+                            route = "$OUTPUT/$catMessage?$URGENCY_ARG=$urgent"
                         )
                     }
                 )
@@ -35,8 +35,11 @@ fun CatMessageApp() {
             composable(
                 route = OUTPUT_WITH_ARGS,
                 arguments = listOf(
-                    navArgument(URGENCY_ARG){ type = NavType.BoolType },
-                    navArgument(CAT_MESSAGE_ARG){ type = NavType.StringType}
+                    navArgument(CAT_MESSAGE_ARG){ type = NavType.StringType},
+                    navArgument(URGENCY_ARG){
+                        type = NavType.BoolType
+                        defaultValue = false
+                    }
                 )
             ) { backStackEntry ->
                 val arguments = backStackEntry.arguments!!
