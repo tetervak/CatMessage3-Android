@@ -15,7 +15,7 @@ fun CatMessageTopBar(
     showArrow: Boolean,
     onArrowClick: () -> Unit,
 ) {
-    if(showArrow){
+    if (showArrow) {
         TopAppBar(
             title = { Text(text = title) },
             navigationIcon = {
@@ -27,7 +27,7 @@ fun CatMessageTopBar(
                 }
             },
         )
-    }else{
+    } else {
         TopAppBar(title = { Text(text = title) })
     }
 }

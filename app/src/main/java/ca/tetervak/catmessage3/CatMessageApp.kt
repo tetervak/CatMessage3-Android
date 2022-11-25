@@ -25,9 +25,9 @@ fun CatMessageApp() {
         val backStackEntry by navController.currentBackStackEntryAsState()
         val route: String = backStackEntry?.destination?.route ?: INPUT
         val title =
-            if(route.startsWith(OUTPUT)){
+            if (route.startsWith(OUTPUT)) {
                 stringResource(id = R.string.output_destination_label)
-            }else{
+            } else {
                 stringResource(id = R.string.input_destination_label)
             }
 
