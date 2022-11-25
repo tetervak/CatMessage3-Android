@@ -1,9 +1,6 @@
 package ca.tetervak.catmessage3
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavArgument
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -27,7 +24,7 @@ fun CatMessageApp() {
                 InputScreen(
                     onSend = { urgent, catMessage ->
                         navController.navigate(
-                            route = "$OUTPUT/$catMessage?$URGENCY_ARG=$urgent"
+                            route = "$OUTPUT?$URGENCY_ARG=$urgent&$CAT_MESSAGE_ARG=$catMessage"
                         )
                     }
                 )
@@ -35,8 +32,11 @@ fun CatMessageApp() {
             composable(
                 route = OUTPUT_WITH_ARGS,
                 arguments = listOf(
-                    navArgument(CAT_MESSAGE_ARG){ type = NavType.StringType},
-                    navArgument(URGENCY_ARG){
+                    navArgument(CAT_MESSAGE_ARG) {
+                        type = NavType.StringType
+                        defaultValue = CatMessage.MEW.toString()
+                    },
+                    navArgument(URGENCY_ARG) {
                         type = NavType.BoolType
                         defaultValue = false
                     }
