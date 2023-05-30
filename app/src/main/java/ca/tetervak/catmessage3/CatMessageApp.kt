@@ -1,9 +1,6 @@
 package ca.tetervak.catmessage3
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavArgument
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -21,28 +18,28 @@ fun CatMessageApp() {
         val navController = rememberNavController()
         NavHost(
             navController = navController,
-            startDestination = INPUT
+            startDestination = "input"
         ) {
-            composable(route = INPUT) {
+            composable(route = "input") {
                 InputScreen(
                     onSend = { urgent, catMessage ->
                         navController.navigate(
-                            route = "$OUTPUT/$urgent/$catMessage"
+                            route = "output/$urgent/$catMessage"
                         )
                     }
                 )
             }
             composable(
-                route = OUTPUT_WITH_ARGS,
+                route = "output/{urgent}/{catMessage}",
                 arguments = listOf(
-                    navArgument(URGENCY_ARG){ type = NavType.BoolType },
-                    navArgument(CAT_MESSAGE_ARG){ type = NavType.StringType}
+                    navArgument("urgent"){ type = NavType.BoolType },
+                    navArgument("catMessage"){ type = NavType.StringType}
                 )
             ) { backStackEntry ->
                 val arguments = backStackEntry.arguments!!
                 OutputScreen(
-                    urgent = arguments.getBoolean(URGENCY_ARG),
-                    catMessage = CatMessage.valueOf(arguments.getString(CAT_MESSAGE_ARG)!!),
+                    urgent = arguments.getBoolean("urgent"),
+                    catMessage = CatMessage.valueOf(arguments.getString("catMessage")!!),
                     onBack = {
                         navController.popBackStack()
                     }
