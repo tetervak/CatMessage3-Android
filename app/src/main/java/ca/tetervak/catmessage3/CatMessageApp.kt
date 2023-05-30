@@ -18,19 +18,19 @@ fun CatMessageApp() {
         val navController = rememberNavController()
         NavHost(
             navController = navController,
-            startDestination = INPUT
+            startDestination = "input"
         ) {
-            composable(route = INPUT) {
+            composable(route = "input") {
                 InputScreen(
                     onSend = { urgent, catMessage ->
                         navController.navigate(
-                            route = "$OUTPUT?$URGENCY_ARG=$urgent&$CAT_MESSAGE_ARG=$catMessage"
+                            route = "output?urgent=$urgent&catMessage=$catMessage"
                         )
                     }
                 )
             }
             composable(
-                route = OUTPUT_WITH_ARGS,
+                route = "output?urgent={urgent}&catMessage={catMessage}",
                 arguments = listOf(
                     navArgument(CAT_MESSAGE_ARG) {
                         type = NavType.StringType
@@ -44,8 +44,8 @@ fun CatMessageApp() {
             ) { backStackEntry ->
                 val arguments = backStackEntry.arguments!!
                 OutputScreen(
-                    urgent = arguments.getBoolean(URGENCY_ARG),
-                    catMessage = CatMessage.valueOf(arguments.getString(CAT_MESSAGE_ARG)!!),
+                    urgent = arguments.getBoolean("urgent"),
+                    catMessage = CatMessage.valueOf(arguments.getString("catMessage")!!),
                     onBack = {
                         navController.popBackStack()
                     }
