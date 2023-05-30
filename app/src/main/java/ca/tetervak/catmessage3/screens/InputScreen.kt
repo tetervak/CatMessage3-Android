@@ -23,6 +23,8 @@ import ca.tetervak.catmessage3.theme.CatMessageTheme
 @Composable
 fun InputScreen(
     uiState: CatMessageUiState,
+    onUrgencyChange: (Boolean) -> Unit,
+    onMessageChange: (CatMessage) -> Unit,
     onSend: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -49,12 +51,12 @@ fun InputScreen(
         )
         UrgencyInput(
             urgent = uiState.urgent,
-            onChange = uiState.onUrgencyChange,
+            onChange = onUrgencyChange,
             modifier = Modifier.padding(top = 16.dp)
         )
         MessageInput(
             catMessage = uiState.catMessage,
-            onChange = uiState.onMessageChange,
+            onChange = onMessageChange,
             modifier = Modifier.padding(top = 8.dp)
         )
         Button(
@@ -142,6 +144,8 @@ fun InputScreenPreview() {
     CatMessageTheme {
         InputScreen(
             uiState = CatMessageUiState(),
+            onUrgencyChange = {},
+            onMessageChange = {},
             onSend = {}
         )
     }

@@ -9,19 +9,16 @@ import ca.tetervak.catmessage3.model.CatMessage
 class CatMessageViewModel : ViewModel() {
 
     private val _uiState: MutableState<CatMessageUiState> = mutableStateOf(
-        CatMessageUiState().copy(
-            onMessageChange = ::setMessage,
-            onUrgencyChange = ::setUrgency,
-        )
+        CatMessageUiState()
     )
     val uiState: State<CatMessageUiState> = _uiState
 
-    private fun setUrgency(urgent: Boolean) {
+    fun updateUrgency(urgent: Boolean) {
         val newUiState = uiState.value.copy(urgent = urgent)
         _uiState.value = newUiState
     }
 
-    private fun setMessage(catMessage: CatMessage) {
+    fun updateMessage(catMessage: CatMessage) {
         val newUiState = uiState.value.copy(catMessage = catMessage)
         _uiState.value = newUiState
     }

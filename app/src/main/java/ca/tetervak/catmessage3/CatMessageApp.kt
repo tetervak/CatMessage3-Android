@@ -25,6 +25,8 @@ fun CatMessageApp() {
             composable(route = INPUT) {
                 InputScreen(
                     uiState = uiState,
+                    onUrgencyChange = { viewModel.updateUrgency(it) },
+                    onMessageChange = { viewModel.updateMessage(it) },
                     onSend = {
                         navController.navigate(route = OUTPUT)
                     }
