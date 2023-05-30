@@ -20,19 +20,19 @@ fun CatMessageApp() {
         val navController = rememberNavController()
         NavHost(
             navController = navController,
-            startDestination = INPUT
+            startDestination = "input"
         ) {
-            composable(route = INPUT) {
+            composable(route = "input") {
                 InputScreen(
                     uiState = uiState,
                     onUrgencyChange = { viewModel.updateUrgency(it) },
                     onMessageChange = { viewModel.updateMessage(it) },
                     onSend = {
-                        navController.navigate(route = OUTPUT)
+                        navController.navigate(route = "output")
                     }
                 )
             }
-            composable(route = OUTPUT) {
+            composable(route = "output") {
                 OutputScreen(
                     uiState = uiState,
                     onBack = {
