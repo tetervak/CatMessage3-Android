@@ -18,4 +18,9 @@
     <string name="received_message_label">Received Message</string>
     <string name="urgent">Urgent</string>
     <string name="not_urgent">Not Urgent</string>
+    <string name="back_button_description">back button</string>
+
+    <!-- Navigation TopAppBar labels -->
+    <string name="input_destination_label">Input</string>
+    <string name="output_destination_label">Output</string>
 </resources>
